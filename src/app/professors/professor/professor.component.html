@@ -1,0 +1,147 @@
+<div class="card-header" style="margin-bottom: 5px;">
+    Professor
+</div>
+<form name="proform" #form="ngForm" autocomplete="off" novalidate
+(ngSubmit)="onSubmit(form)">
+    <!--id-->
+    <input type="hidden" name="id" [(ngModel)]="professorService.formData.id">
+
+    <!--First Name-->
+    <div class="form-group" class="input-group mb-3">
+        <span class="input-group-text" >First Name</span>
+        <input name="firstName" id="firstName"
+            #firstName="ngModel" 
+            [(ngModel)]="professorService.formData.firstName"
+            type="text" class="form-control"
+            placeholder="Enter First Name"
+            minlength="3" maxlength="25" required
+            [ngClass]="{'is-invalid':firstName.touched && firstName.invalid}" 
+        >
+        <div class="validation-error" *ngIf="firstName.touched && firstName.invalid">
+            <div *ngIf="firstName.errors">First Name Required</div>
+        </div>
+    </div>
+
+        <!--Last Name-->
+        <div class="form-group" class="input-group mb-3">
+            <span class="input-group-text" >Last Name</span>
+            <input name="lastName" id="lastName"
+                #lastName="ngModel" 
+                [(ngModel)]="professorService.formData.lastName"
+                type="text" class="form-control"
+                placeholder="Enter Last Name"
+                minlength="3" maxlength="25" required
+                [ngClass]="{'is-invalid':lastName.touched && lastName.invalid}" 
+            >
+            <div class="validation-error" *ngIf="lastName.touched && lastName.invalid">
+                <div *ngIf="lastName.errors">Last Name Required</div>
+            </div>
+        </div>
+
+        
+        <!--Department Number-->
+        <div class="form-group" class="input-group mb-3">
+            <span class="input-group-text" >Department No</span>
+            <input name="deptNo" id="deptNo"
+                #deptNo="ngModel" 
+                [(ngModel)]="professorService.formData.deptNo"
+                type="number" class="form-control"
+                placeholder="Enter Department Number"
+                required
+                [ngClass]="{'is-invalid':deptNo.touched && deptNo.invalid}" 
+            >
+            <div class="validation-error" *ngIf="deptNo.touched && deptNo.invalid">
+                <div *ngIf="deptNo.errors">Department No Required</div>
+            </div>
+        </div>
+
+    <!--Salary-->
+    <div class="form-group" class="input-group mb-3">
+        <span class="input-group-text">Salary</span>
+        <input name="salary" id="salary" 
+            #salary="ngModel" 
+            [(ngModel)]="professorService.formData.salary" 
+            type="number" class="form-control" 
+            placeholder="Enter Salary" required
+            [ngClass]="{'is-invalid':salary.touched && salary.invalid}">
+        <div class="validation-error" *ngIf="salary.touched && salary.invalid">
+            <div *ngIf="salary.errors">Salary Required</div>
+        </div>
+    </div>
+
+    <!--Date of Joining-->
+    <div class="form-group" class="input-group mb-3">
+        <span class="input-group-text">Date of Joining</span>
+        <input name="dateOfJoining" id="dateOfJoining" 
+            #dateOfJoining="ngModel" 
+            [(ngModel)]="professorService.formData.dateOfJoining" 
+            type="date" class="form-control" 
+            minlength="3" maxlength="25" date-format="dd-mm-yyyy"  required
+            [ngClass]="{'is-invalid':dateOfJoining.touched && dateOfJoining.invalid}"
+        >
+        <div class="validation-error" *ngIf="dateOfJoining.touched && dateOfJoining.invalid">
+            <div *ngIf="dateOfJoining.errors">Date of Joining Required</div>
+        </div>
+    </div>
+
+    <!--Date of Birth-->
+    <div class="form-group" class="input-group mb-3">
+        <span class="input-group-text">Date of Birth</span>
+        <input name="dateOfBirth" id="dateOfBirth" 
+            #dateOfBirth="ngModel" 
+            [(ngModel)]="professorService.formData.dateOfBirth" 
+            type="date" class="form-control" 
+            required
+            [ngClass]="{'is-invalid':dateOfBirth.touched && dateOfBirth.invalid}"
+        >
+        <div class="validation-error" *ngIf="dateOfBirth.touched && dateOfBirth.invalid">
+            <div *ngIf="dateOfBirth.errors">Date of Birth Required</div>
+        </div>
+    </div>
+
+    <!--Gender-->
+    <div class="form-group" class="input-group mb-3">
+        <span class="input-group-text" >Gender</span>
+        <select name="gender" id="gender"
+            class="form-control" required
+            #gender="ngModel" 
+            [(ngModel)]="professorService.formData.gender"
+        >
+            <!--option value=0 disabled>Choose Your gender</option-->
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+        </select>
+        <div class="validation-error" *ngIf="gender.touched && gender.invalid">
+            <div *ngIf="gender.errors">Gender Required</div>
+        </div>
+    </div>
+
+    <!--Department Dropdown-->
+    <div class="form-group"class="input-group mb-3">
+        <span class="input-group-text">Manager</span>
+        <select name="managerid" id="managerid"
+        class="form-control" required 
+        #managerid="ngModel"
+        [(ngModel)]="professorService.formData.managerid"
+        >
+            <option value=0 disabled>Choose Manager</option>
+            <option *ngFor="let mgnr of professorService.managers"
+            value="{{mgnr.managerId}}">{{mgnr.managerName}}</option>
+        </select>
+        <div class="validation-error" 
+            *ngIf="managerid.touched && managerid.invalid">
+            <div *ngIf="managerid.errors">Manager is Required</div>
+        </div>
+    </div>
+
+
+    <hr>
+
+    <div style="margin-top: 10px" class="form-group">
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit" [disabled]="!(form.valid && form.dirty)">Submit</button>
+        </div>
+    </div>
+
+</form>
